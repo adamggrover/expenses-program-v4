@@ -25,6 +25,12 @@ class ExpenseClaim
         return expenseCost;
     }
 
+    // Setter method for the expense cost field
+    public void SetExpenseCost(double expenseCost)
+    {
+        this.expenseCost = expenseCost;
+    }
+
     // Setter method for the travel cost field
     public void SetTravelCost(double travelCost)
     {
@@ -150,12 +156,12 @@ class Program
         Console.WriteLine("Enter the expense cost: ");
         double expenseCost = double.Parse(Console.ReadLine());
 
-        /*
+        
 
        // Set the expense cost in the expense claim object
        expenseClaim.SetExpenseCost(expenseCost);
 
-
+       /*
 
        // Ask the user to enter the non-refundable amount
        Console.WriteLine("Enter the non-refundable amount: ");
