@@ -6,14 +6,18 @@ class ExpenseClaim
     // Fields to store the expense cost, travel cost, non-refundable amount, and claim type
     private double expenseCost;
     private double travelCost;
-    private double nonRefundable;
+    private double nonRefundable = 50.00;
     private string claimType;
 
     // Setter method for the expense cost field
+
+    /*
     public void SetExpenseCost(double expenseCost)
     {
         this.expenseCost = expenseCost;
     }
+
+    */
 
     // Getter method for the expense cost field
     public double GetExpenseCost()
@@ -34,16 +38,19 @@ class ExpenseClaim
     }
 
     // Setter method for the non-refundable amount field
+    /*
     public void SetNonRefundable(double nonRefundable)
     {
         this.nonRefundable = nonRefundable;
     }
+    */
 
     // Getter method for the non-refundable amount field
     public double GetNonRefundable()
     {
         return nonRefundable;
     }
+
 
     // Setter method for the claim type field
     public void SetClaimType(string claimType)
@@ -137,15 +144,23 @@ class Program
         Console.WriteLine("Enter the expense cost: ");
         double expenseCost = double.Parse(Console.ReadLine());
 
-        // Set the expense cost in the expense claim object
-        expenseClaim.SetExpenseCost(expenseCost);
+        /*
 
-        // Ask the user to enter the non-refundable amount
-        Console.WriteLine("Enter the non-refundable amount: ");
-        double nonRefundable = double.Parse(Console.ReadLine());
+       // Set the expense cost in the expense claim object
+       expenseClaim.SetExpenseCost(expenseCost);
 
-        // Set the non-refundable amount in the expense claim object
-        expenseClaim.SetNonRefundable(nonRefundable);
+
+
+       // Ask the user to enter the non-refundable amount
+       Console.WriteLine("Enter the non-refundable amount: ");
+       double nonRefundable = double.Parse(Console.ReadLine());
+
+        */
+
+        // Get the non-refundable amount in the expense claim object
+        expenseClaim.GetNonRefundable();
+
+       
 
         // Get the receipt details from the expense claim object
         var receiptDetails = expenseClaim.GetReceiptDetails();
@@ -164,7 +179,7 @@ class Program
         Console.WriteLine("Tax that can be reclaimed by the company: " + expenseClaim.GetTotalCost() * 0.2);
 
         // Calculate and print the amount that will need to be paid to the employee (total cost minus non-refundable amount)
-        Console.WriteLine("Amount that will need to be paid to the employee: " + (expenseClaim.GetTotalCost() - nonRefundable));
+        Console.WriteLine("Amount that will need to be paid to the employee: " + (expenseClaim.GetTotalCost() - expenseClaim.GetNonRefundable()));
 
         // Calculate and print the average payment required (total cost divided by 2, since the employee is awarded 100% of the travel cost)
         Console.WriteLine("Average payment required: " + expenseClaim.GetTotalCost() / 2);
