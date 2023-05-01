@@ -130,8 +130,14 @@ class Program
         }
         int claimTypeIndex = int.Parse(Console.ReadLine()) - 1;
 
-        //Assign user claim type choice to local variable
+        
+
+        // Assign user claim type choice to local variable
         string claimType = claimTypes[claimTypeIndex];
+
+        // Set the claim type in the expense claim object
+
+        expenseClaim.SetClaimType(claimType);
 
         // Ask the user to enter the travel cost
         Console.WriteLine("Enter the travel cost: ");
