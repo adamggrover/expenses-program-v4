@@ -9,26 +9,17 @@ class ExpenseClaim
     private double nonRefundable = 50.00;
     private string claimType;
 
-    // Setter method for the expense cost field
 
-    /*
+    // Setter method for the expense cost field    
     public void SetExpenseCost(double expenseCost)
     {
         this.expenseCost = expenseCost;
-    }
-
-    */
+    }       
 
     // Getter method for the expense cost field
     public double GetExpenseCost()
     {
         return expenseCost;
-    }
-
-    // Setter method for the expense cost field
-    public void SetExpenseCost(double expenseCost)
-    {
-        this.expenseCost = expenseCost;
     }
 
     // Setter method for the travel cost field
@@ -128,8 +119,10 @@ class Program
         // Create an array for the claim type choices
         string[] claimTypes = { "Travel and Expenses", "Just Travel" };
 
+        Console.WriteLine("------------------New Expense Claim------------------\n");
+
         // Ask the user to select the claim type from the choices
-        Console.WriteLine("Select claim type:");
+        Console.WriteLine("Please select a claim type:\n");
         for (int j = 0; j < claimTypes.Length; j++)
         {
             Console.WriteLine(j + 1 + ") " + claimTypes[j]);
@@ -146,28 +139,33 @@ class Program
         expenseClaim.SetClaimType(claimType);
 
         // Ask the user to enter the travel cost
-        Console.WriteLine("Enter the travel cost: ");
+        Console.WriteLine("\nPlease enter the travel cost: ");
         double travelCost = double.Parse(Console.ReadLine());
 
         // Set the travel cost in the expense claim object
         expenseClaim.SetTravelCost(travelCost);
 
-        // Ask the user to enter the expense cost
-        Console.WriteLine("Enter the expense cost: ");
-        double expenseCost = double.Parse(Console.ReadLine());
+        // Initialise the travel cost variable
+        double expenseCost = 0;
 
-        
+        // If claim is for travel and expenses, get expense cost from user
+        if (claimType == "Travel and Expenses")
+        {
+            // Ask the user to enter the expense cost
+            Console.WriteLine("\nPlease enter the expense cost: ");
+            expenseCost = double.Parse(Console.ReadLine());
 
-       // Set the expense cost in the expense claim object
-       expenseClaim.SetExpenseCost(expenseCost);
+            // Set the expense cost in the expense claim object
+            expenseClaim.SetExpenseCost(expenseCost);
+        }
 
-       /*
+        /*
 
-       // Ask the user to enter the non-refundable amount
-       Console.WriteLine("Enter the non-refundable amount: ");
-       double nonRefundable = double.Parse(Console.ReadLine());
+        // Ask the user to enter the non-refundable amount
+        Console.WriteLine("Enter the non-refundable amount: ");
+        double nonRefundable = double.Parse(Console.ReadLine());
 
-        */
+         */
 
         // Get the non-refundable amount in the expense claim object
         expenseClaim.GetNonRefundable();
@@ -178,7 +176,7 @@ class Program
         var receiptDetails = expenseClaim.GetReceiptDetails();
 
         // Print the receipt details
-        Console.WriteLine("\nReceipt Details:");
+        Console.WriteLine("\n\n---------------------------Receipt Details-------------------------------\n");
         foreach (var detail in receiptDetails)
         {
             Console.WriteLine(detail);
@@ -199,5 +197,6 @@ class Program
         // Calculate and print the largest payment made (whichever is greater: the travel cost or the expense cost minus the £50 limit)
         double largestPayment = expenseCost - 50 > travelCost ? expenseCost - 50 : travelCost;
         Console.WriteLine("Largest payment made: " + largestPayment);
+        Console.WriteLine("\n-------------------------------------------------------------------------\n");
     }
 }
