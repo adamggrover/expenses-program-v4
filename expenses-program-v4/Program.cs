@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class ExpenseClaim
 {
-    // Private fields to store the expense cost, travel cost, non-refundable amount, and claim type
+    // Fields to store the expense cost, travel cost, non-refundable amount, and claim type
     private double expenseCost;
     private double travelCost;
     private double nonRefundable;
@@ -92,13 +92,17 @@ class ExpenseClaim
 }
 
 
-class Company
+public class Company
 {
+    // Static method to calculate the amount of tax that can be reclaimed by the company
+    // calculated at 20% of the total cost
     public static double GetReclaimableTax(double totalCost)
     {
-        return totalCost * 0.20;
+        // Multiply the total cost by 0.2 (20%) to get the amount of tax that can be reclaimed
+        return totalCost * 0.2;
     }
 }
+
 
 
 class Program
@@ -108,12 +112,19 @@ class Program
         // Create a new instance of the ExpenseClaim class
         ExpenseClaim expenseClaim = new ExpenseClaim();
 
-        // Ask the user to enter the claim type
-        Console.WriteLine("Enter the claim type (Travel and Expenses or Just Travel): ");
-        string claimType = Console.ReadLine();
+        // Create an array for the claim type choices
+        string[] claimTypes = { "Travel and Expenses", "Just Travel" };
 
-        // Set the claim type in the expense claim object
-        expenseClaim.SetClaimType(claimType);
+        // Ask the user to select the claim type from the choices
+        Console.WriteLine("Select claim type:");
+        for (int j = 0; j < claimTypes.Length; j++)
+        {
+            Console.WriteLine(j + 1 + ") " + claimTypes[j]);
+        }
+        int claimTypeIndex = int.Parse(Console.ReadLine()) - 1;
+
+        //Assign user claim type choice to local variable
+        string claimType = claimTypes[claimTypeIndex];
 
         // Ask the user to enter the travel cost
         Console.WriteLine("Enter the travel cost: ");
