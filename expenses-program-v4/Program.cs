@@ -6,7 +6,7 @@ class ExpenseClaim
     // Fields to store the expense cost, travel cost, non-refundable amount, and claim type
     private double expenseCost;
     private double travelCost;
-    private double nonRefundable = 50.00;
+    private double nonRefundable;
     private string claimType;
 
 
@@ -35,12 +35,21 @@ class ExpenseClaim
     }
 
     // Setter method for the non-refundable amount field
-    /*
-    public void SetNonRefundable(double nonRefundable)
+    
+    public void SetNonRefundable(double expenseCost)
     {
-        this.nonRefundable = nonRefundable;
+        if (expenseCost > 50)
+        {
+            this.nonRefundable = expenseCost - 50;
+
+        }
+        else 
+        {
+            this.nonRefundable = 0;
+        }    
+            
     }
-    */
+    
 
     // Getter method for the non-refundable amount field
     public double GetNonRefundable()
@@ -65,14 +74,16 @@ class ExpenseClaim
     public double GetTotalCost()
     {
         // Calculate the total cost by adding the expense cost and travel cost and then subtracting the non-refundable amount
-        double totalCost = expenseCost + travelCost - nonRefundable;
+        double totalCost = expenseCost + travelCost;
+
+        /*
 
         // If the claim type is "Just Travel", subtract the expense cost from the total cost
         if (claimType == "Just Travel")
         {
             totalCost -= expenseCost;
         }
-
+        */
         // Return the total cost
         return totalCost;
     }
@@ -85,10 +96,11 @@ class ExpenseClaim
 
         // Add the claim type, expense cost, travel cost, non-refundable amount, and total cost to the list of receipt details
         details.Add("Claim type: " + claimType);
-        details.Add("Expense cost: " + expenseCost);
+        details.Add("\nExpense cost: " + expenseCost);
         details.Add("Travel cost: " + travelCost);
-        details.Add("Non-refundable: " + nonRefundable);
         details.Add("Total cost: " + GetTotalCost());
+        details.Add("Non-refundable amount: " + nonRefundable);
+        
 
         // Return the list of receipt details
         return details;
@@ -167,8 +179,10 @@ class Program
 
          */
 
+        expenseClaim.SetNonRefundable(expenseCost);
+
         // Get the non-refundable amount in the expense claim object
-        expenseClaim.GetNonRefundable();
+        //expenseClaim.GetNonRefundable();
 
        
 
