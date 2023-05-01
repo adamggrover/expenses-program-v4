@@ -3,72 +3,94 @@ using System.Collections.Generic;
 
 class ExpenseClaim
 {
+    // Private fields to store the expense cost, travel cost, non-refundable amount, and claim type
     private double expenseCost;
     private double travelCost;
     private double nonRefundable;
     private string claimType;
 
+    // Setter method for the expense cost field
     public void SetExpenseCost(double expenseCost)
     {
         this.expenseCost = expenseCost;
     }
 
+    // Getter method for the expense cost field
     public double GetExpenseCost()
     {
         return expenseCost;
     }
 
+    // Setter method for the travel cost field
     public void SetTravelCost(double travelCost)
     {
         this.travelCost = travelCost;
     }
 
+    // Getter method for the travel cost field
     public double GetTravelCost()
     {
         return travelCost;
     }
 
+    // Setter method for the non-refundable amount field
     public void SetNonRefundable(double nonRefundable)
     {
-        this.nonRefundable = 0;
+        this.nonRefundable = nonRefundable;
     }
 
+    // Getter method for the non-refundable amount field
     public double GetNonRefundable()
     {
         return nonRefundable;
     }
 
+    // Setter method for the claim type field
     public void SetClaimType(string claimType)
     {
         this.claimType = claimType;
     }
 
+    // Getter method for the claim type field
     public string GetClaimType()
     {
         return claimType;
     }
 
+    // Method to calculate the total cost of the expense claim
     public double GetTotalCost()
     {
+        // Calculate the total cost by adding the expense cost and travel cost and then subtracting the non-refundable amount
         double totalCost = expenseCost + travelCost - nonRefundable;
+
+        // If the claim type is "Just Travel", subtract the expense cost from the total cost
         if (claimType == "Just Travel")
         {
             totalCost -= expenseCost;
         }
+
+        // Return the total cost
         return totalCost;
     }
 
+    // Method to generate the receipt details as a list of strings
     public List<string> GetReceiptDetails()
     {
+        // Create a new list to store the receipt details
         List<string> details = new List<string>();
+
+        // Add the claim type, expense cost, travel cost, non-refundable amount, and total cost to the list of receipt details
         details.Add("Claim type: " + claimType);
         details.Add("Expense cost: " + expenseCost);
         details.Add("Travel cost: " + travelCost);
         details.Add("Non-refundable: " + nonRefundable);
         details.Add("Total cost: " + GetTotalCost());
+
+        // Return the list of receipt details
         return details;
     }
 }
+
 
 class Company
 {
@@ -79,83 +101,65 @@ class Company
 }
 
 
-
-
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Expense Claim Program\n");
+        // Create a new instance of the ExpenseClaim class
+        ExpenseClaim expenseClaim = new ExpenseClaim();
 
-        Console.Write("Enter the number of journeys completed: ");
-        int numberOfJourneys = int.Parse(Console.ReadLine());
+        // Ask the user to enter the claim type
+        Console.WriteLine("Enter the claim type (Travel and Expenses or Just Travel): ");
+        string claimType = Console.ReadLine();
 
-        List<ExpenseClaim> claims = new List<ExpenseClaim>();
+        // Set the claim type in the expense claim object
+        expenseClaim.SetClaimType(claimType);
 
-        for (int i = 0; i < numberOfJourneys; i++)
+        // Ask the user to enter the travel cost
+        Console.WriteLine("Enter the travel cost: ");
+        double travelCost = double.Parse(Console.ReadLine());
+
+        // Set the travel cost in the expense claim object
+        expenseClaim.SetTravelCost(travelCost);
+
+        // Ask the user to enter the expense cost
+        Console.WriteLine("Enter the expense cost: ");
+        double expenseCost = double.Parse(Console.ReadLine());
+
+        // Set the expense cost in the expense claim object
+        expenseClaim.SetExpenseCost(expenseCost);
+
+        // Ask the user to enter the non-refundable amount
+        Console.WriteLine("Enter the non-refundable amount: ");
+        double nonRefundable = double.Parse(Console.ReadLine());
+
+        // Set the non-refundable amount in the expense claim object
+        expenseClaim.SetNonRefundable(nonRefundable);
+
+        // Get the receipt details from the expense claim object
+        var receiptDetails = expenseClaim.GetReceiptDetails();
+
+        // Print the receipt details
+        Console.WriteLine("\nReceipt Details:");
+        foreach (var detail in receiptDetails)
         {
-            Console.WriteLine("\nJourney " + (i + 1) + "\n");
-
-            Console.Write("Enter the expense cost: ");
-            double expenseCost = double.Parse(Console.ReadLine());
-
-            Console.Write("Enter the travel cost: ");
-            double travelCost = double.Parse(Console.ReadLine());
-
-            Console.Write("Enter the non-refundable amount: ");
-            double nonRefundable = double.Parse(Console.ReadLine());
-
-            string[] claimTypes = { "Travel and Expenses", "Just Travel" };
-            Console.WriteLine("Select claim type:");
-            for (int j = 0; j < claimTypes.Length; j++)
-            {
-                Console.WriteLine(j + 1 + ") " + claimTypes[j]);
-            }
-            int claimTypeIndex = int.Parse(Console.ReadLine()) - 1;
-            string claimType = claimTypes[claimTypeIndex];
-
-            ExpenseClaim claim = new ExpenseClaim();
-            claim.SetExpenseCost(expenseCost);
-            claim.SetTravelCost(travelCost);
-            claim.SetNonRefundable(nonRefundable);
-            claim.SetClaimType(claimType);
-
-            claims.Add(claim);
+            Console.WriteLine(detail);
         }
 
-        double totalExpenseCost = 0;
-        double totalTravelCost = 0;
-        double totalNonRefundable = 0;
-        double totalCost = 0;
+        // Calculate and print the total cost of the expense claim
+        Console.WriteLine("\nTotal cost of the expense claim: " + expenseClaim.GetTotalCost());
 
-        foreach (ExpenseClaim claim in claims)
-        {
-            totalExpenseCost += claim.GetExpenseCost();
-            totalTravelCost += claim.GetTravelCost();
-            totalNonRefundable += claim.GetNonRefundable();
-            totalCost += claim.GetTotalCost();
-        }
+        // Calculate and print the tax that can be reclaimed by the company (20% of the total cost)
+        Console.WriteLine("Tax that can be reclaimed by the company: " + expenseClaim.GetTotalCost() * 0.2);
 
-        double reclaimableTax = Company.GetReclaimableTax(totalCost);
+        // Calculate and print the amount that will need to be paid to the employee (total cost minus non-refundable amount)
+        Console.WriteLine("Amount that will need to be paid to the employee: " + (expenseClaim.GetTotalCost() - nonRefundable));
 
-        Console.WriteLine("\nReceipt Details:\n");
+        // Calculate and print the average payment required (total cost divided by 2, since the employee is awarded 100% of the travel cost)
+        Console.WriteLine("Average payment required: " + expenseClaim.GetTotalCost() / 2);
 
-        foreach (ExpenseClaim claim in claims)
-        {
-            Console.WriteLine("\nClaim:");
-            List<string> details = claim.GetReceiptDetails();
-            foreach (string detail in details)
-            {
-                Console.WriteLine(detail);
-            }
-        }
-
-        Console.WriteLine("\nTotals:\n");
-
-        Console.WriteLine("Total expense cost: " + totalExpenseCost);
-        Console.WriteLine("Total travel cost: " + totalTravelCost);
-        Console.WriteLine("Total non-refundable: " + totalNonRefundable);
-        Console.WriteLine("Total cost: " + totalCost);
-        Console.WriteLine("Reclaimable tax: " + reclaimableTax);
+        // Calculate and print the largest payment made (whichever is greater: the travel cost or the expense cost minus the £50 limit)
+        double largestPayment = expenseCost - 50 > travelCost ? expenseCost - 50 : travelCost;
+        Console.WriteLine("Largest payment made: " + largestPayment);
     }
 }
