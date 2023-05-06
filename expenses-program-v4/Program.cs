@@ -55,13 +55,15 @@ class Program
                 // Add current journey instance expenses to current claim instance running total
                 expenseClaim.AddToTotalExpenses(expenseCost);
 
-                foreach (var detail in (journey.GetReceiptDetails()))
-                {
-                    Console.WriteLine(detail);
-                }
 
 
 
+
+            }
+
+            foreach (var detail in (journey.GetReceiptDetails()))
+            {
+                Console.WriteLine(detail);
             }
 
 
