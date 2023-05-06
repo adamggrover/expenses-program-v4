@@ -37,6 +37,8 @@ class Program
             // Get the user to set the travel cost of the current journey
             journey.SetTravelCost();
 
+            // Add current journey instance expenses to current claim instance running total
+            expenseClaim.AddToTotalTravelCost(journey.GetTravelCost());
 
             // If claim is for expenses as well as travel then set expense cost 
 
@@ -52,11 +54,17 @@ class Program
                 // Set the non refundable amount in the current journey object
                 journey.SetNonRefundable(expenseCost);
 
+                // Add current journey instance non refundable amount to current claim instance running total
+                expenseClaim.AddToTotalNonRefundable(journey.GetNonRefundable());
+
                 // Add current journey instance expenses to current claim instance running total
                 expenseClaim.AddToTotalExpenses(expenseCost);
 
+                //Add current journey instance expense and travel cost totals to current expense claim instance running total
+                expenseClaim.AddToTotalExpenseClaim();
 
 
+                expenseClaim.SetTotalEmployeePayment();
 
 
             }
@@ -64,7 +72,9 @@ class Program
             foreach (var detail in (journey.GetReceiptDetails()))
             {
                 Console.WriteLine(detail);
+                ;
             }
+
 
 
 
@@ -74,24 +84,11 @@ class Program
 
             Console.WriteLine("\n----------------------------------------------------------");
 
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        foreach (var detail in (expenseClaim.GetReceiptDetails()))
+        {
+            Console.WriteLine(detail);
         }
 
         /*

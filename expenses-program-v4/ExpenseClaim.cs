@@ -12,8 +12,13 @@ internal class ExpenseClaim
     // Fields 
     private int numberOfJourneys;
     private double totalExpenses = 0;
+    private double totalTravelCost = 0;
     // Create a list of the Journey objects
     private List<Journey> Journeys = new List<Journey>();
+    private double totalExpenseClaim = 0;
+    private double totalNonRefundable = 0;
+    private double totalEmployeePayment = 0;
+
 
 
 
@@ -75,9 +80,93 @@ internal class ExpenseClaim
         return totalExpenses;
     }
 
+    //---------Total Travel Cost-----------------------------//
+
+    // Setter method for the total travel cost field
+
+    public void AddToTotalTravelCost(double travelCost)
+    {
+        this.totalTravelCost += travelCost;
+    }
 
 
+    // Getter method for the total expenses field
+    public double GetTotalTravelCost()
+    {
+        return totalTravelCost;
+    }
 
+    //---------Total Expense Claim-----------------------------//
+
+    // Setter method for the total travel cost field
+
+    public void AddToTotalExpenseClaim()
+    {
+        this.totalExpenseClaim = totalTravelCost + totalExpenses;
+    }
+
+
+    // Getter method for the total expenses field
+    public double GetTotalExpenseClaim()
+    {
+        return totalExpenseClaim;
+    }
+
+    //---------Total Non Refundable-----------------------------//
+
+    // Setter method for the total travel cost field
+
+    public void AddToTotalNonRefundable(double nonRefundable)
+    {
+        this.totalNonRefundable += nonRefundable;
+    }
+
+
+    // Getter method for the total expenses field
+    public double GetTotalNonRefundable()
+    {
+        return totalNonRefundable;
+    }
+
+
+    //---------Total Non Refundable-----------------------------//
+
+    // Setter method for the total travel cost field
+
+    public void SetTotalEmployeePayment()
+    {
+        this.totalEmployeePayment = totalExpenseClaim - totalNonRefundable;
+    }
+
+
+    // Getter method for the total expenses field
+    public double GetTotalEmployeePayment()
+    {
+        return totalEmployeePayment;
+    }
+
+
+    //---------Receipt Details--------------------------------------------------------------------------------------------------------//
+
+    // Method to generate the receipt details as a list of strings
+    public List<string> GetReceiptDetails()
+    {
+        // Create a new list to store the receipt details
+        List<string> details = new List<string>();
+
+        // Add the claim type, expense cost, travel cost, non-refundable amount, and total cost to the list of receipt details
+        details.Add("\nExpense cost: " + totalExpenses);
+        details.Add("Travel cost: " + totalTravelCost);
+        details.Add("Total expense claim cost: " + totalExpenseClaim);
+        details.Add("Total non refundable amount: " + totalNonRefundable);
+        details.Add("Total payment due to employee " + totalEmployeePayment);
+
+        // details.Add("Non-refundable amount: " + nonRefundable);
+
+
+        // Return the list of receipt details
+        return details;
+    }
 
 }
 

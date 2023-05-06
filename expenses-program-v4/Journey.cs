@@ -14,6 +14,7 @@ internal class Journey
     private string[] claimTypes = { "Travel and Expenses", "Just Travel" };
     private string claimType;
     private double maxRefundable = 50;
+    private bool validInput = false;
 
 
     //---------Expense Cost-------------------------------------------------------------------------------------------------------------//
@@ -82,13 +83,37 @@ internal class Journey
         for (int i = 0; i < claimTypes.Length; i++)
         {
             Console.WriteLine(i + 1 + ") " + claimTypes[i]);
+
         }
 
-        // Parse user selected index to local variable
-        int claimTypeIndex = int.Parse(Console.ReadLine()) - 1;
 
-        // Assign user selected cliam type to expense claim object field
-        this.claimType = claimTypes[claimTypeIndex]; ;
+        while (validInput == false)
+        {
+
+            try
+            {
+                // Parse user selected index to local variable
+                int claimTypeIndex = int.Parse(Console.ReadLine()) - 1;
+
+                // Assign user selected claim type to expense claim object field
+                this.claimType = claimTypes[claimTypeIndex];
+
+                validInput = true;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Invalid selection. Please try again");
+
+            }
+
+
+        }
+
+
+
+
+
     }
 
     // Getter method for the claim type field
