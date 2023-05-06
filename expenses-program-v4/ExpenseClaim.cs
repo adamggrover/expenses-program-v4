@@ -12,6 +12,8 @@ internal class ExpenseClaim
     // Fields 
     private int numberOfJourneys;
     private double totalExpenses = 0;
+    // Create a list of the Journey objects
+    private List<Journey> Journeys = new List<Journey>();
 
 
 
@@ -36,6 +38,20 @@ internal class ExpenseClaim
     }
 
 
+    // Getter method for Journeys list
+
+    public List<Journey> GetJourneysList()
+    {
+        return Journeys;
+    }
+
+    // Setter method for adding Journey to Journeys list
+
+    public void AddJourneyToList(Journey journey)
+    {
+        Journeys.Add(journey);
+    }
+
 
 
 
@@ -46,7 +62,7 @@ internal class ExpenseClaim
 
 
     // Setter method for the total expenses field
- 
+
     public void AddToTotalExpenses(double expenseCost)
     {
         this.totalExpenses += expenseCost;

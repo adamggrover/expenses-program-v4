@@ -118,7 +118,7 @@ internal class Journey
         List<string> details = new List<string>();
 
         // Add the claim type, expense cost, travel cost, non-refundable amount, and total cost to the list of receipt details
-        details.Add("Claim type: " + claimType);
+        details.Add("\nClaim type: " + claimType);
         details.Add("\nExpense cost: " + expenseCost);
         details.Add("Travel cost: " + travelCost);
         details.Add("Total cost: " + GetTotalCost());
