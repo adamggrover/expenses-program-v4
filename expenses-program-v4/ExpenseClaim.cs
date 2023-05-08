@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 internal class ExpenseClaim
 {
 
-    // Fields 
+    // Fields
+    static int claimCount = 0;
+
+    private int claimId;
     private int numberOfJourneys;
     private double totalExpenses = 0;
     private double totalTravelCost = 0;
@@ -20,7 +23,23 @@ internal class ExpenseClaim
     private double totalEmployeePayment = 0;
 
 
+    // Constructor
+    public ExpenseClaim()
+    {
+        ++claimCount;
+        this.claimId = claimCount;
+        
 
+    }
+
+    //--------Claim Id-----------------------------------//
+
+    // Getter method for Claim Id
+
+    public int GetClaimId()
+    {
+        return claimId;
+    }
 
 
     //---------Journeys-----------------------------//
@@ -155,11 +174,14 @@ internal class ExpenseClaim
         List<string> details = new List<string>();
 
         // Add the claim type, expense cost, travel cost, non-refundable amount, and total cost to the list of receipt details
-        details.Add("\nExpense cost: " + totalExpenses);
-        details.Add("Travel cost: " + totalTravelCost);
-        details.Add("Total expense claim cost: " + totalExpenseClaim);
-        details.Add("Total non refundable amount: " + totalNonRefundable);
-        details.Add("Total payment due to employee " + totalEmployeePayment);
+        
+
+        details.Add("\nExpense Claim #" + claimId + " Totals\n");
+        details.Add("\nTotal travel costs: £" + totalTravelCost);
+        details.Add("Total cost of other expenses: £" + totalExpenses);
+        details.Add("Total cost of expense claim: £" + totalExpenseClaim);
+        details.Add("Total non refundable amount: £" + totalNonRefundable);
+        details.Add("Total payment due to employee £" + totalEmployeePayment);
 
         // details.Add("Non-refundable amount: " + nonRefundable);
 
