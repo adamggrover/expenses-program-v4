@@ -27,9 +27,6 @@ class Program
             // Create a new instance of the Journey class
             Journey journey = new Journey();
 
-            // Print journey number to the console
-            Console.WriteLine("\n----------------------------------------------------------");
-            Console.WriteLine("\nJourney " + (i + 1) + " Details\n");
 
             // Get the user to set the claim type of the journey
             journey.SetClaimType();
@@ -69,39 +66,60 @@ class Program
 
             }
 
-            foreach (var detail in (journey.GetReceiptDetails()))
-            {
-                Console.WriteLine(detail);
-                ;
-            }
 
 
 
 
             // Add current journey instance to the list of journeys
             expenseClaim.GetJourneysList().Add(journey);
-                
 
-            Console.WriteLine("\n----------------------------------------------------------");
+
+            
 
         }
+
+        // Print current expense claim receipt details
+
+        Console.Clear();
+        // Print dividing lines x 2
+        for (int j = 0; j < 2; j++)
+        {
+            Console.WriteLine("\n----------------------------------------------------------");
+        }
+
+        Console.WriteLine("\nExpense Claim #" + expenseClaim.GetClaimId() + " Receipt Details");
+
+        Console.WriteLine("\n----------------------------------------------------------");
+
+
+
+        // Print out journey details for each journey in expense claim
+        foreach (var journey in (expenseClaim.GetJourneysList()))
+        {
+            foreach (var detail in (journey.GetReceiptDetails()))
+            {
+                Console.WriteLine(detail);
+                ;
+            }
+            Console.WriteLine("\n---------------------------------------------------------");
+        }
+
+        // Print out expense claim recipt details for whole claim
+
+        Console.WriteLine("\n----------------------------------------------------------");
 
         foreach (var detail in (expenseClaim.GetReceiptDetails()))
         {
             Console.WriteLine(detail);
         }
 
-        /*
-
-        Console.WriteLine(expenseClaim.GetTotalExpenses());
-
-        foreach (Journey r in Journeys)
+        // Print dividing lines x 2
+        for (int j = 0; j < 2; j++)
         {
-
-            Console.WriteLine("I'm printing something");
-
+            Console.WriteLine("\n----------------------------------------------------------");
         }
-        */
+
+
 
 
 

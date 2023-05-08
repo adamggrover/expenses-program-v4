@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 internal class Journey
 {
     // Fields
+    static int journeyCount = 0;
 
+    private int journeyId;
     private double expenseCost;
     private double travelCost;
     private double nonRefundable = 0;
@@ -15,6 +17,18 @@ internal class Journey
     private string claimType;
     private double maxRefundable = 50;
     private bool validInput = false;
+
+
+
+    // Constructor
+
+    public Journey()
+    {
+        ++journeyCount;
+        this.journeyId = journeyCount;
+
+
+    }
 
 
     //---------Expense Cost-------------------------------------------------------------------------------------------------------------//
@@ -78,6 +92,11 @@ internal class Journey
     // Setter method for the claim type field
     public void SetClaimType()
     {
+        Console.Clear();
+
+
+        // Print journey number to the console
+        Console.WriteLine("\nJourney " + journeyId + " Details\n");
         // Ask the user to select the claim type from the available choices
         Console.WriteLine("Please select a claim type:\n");
         for (int i = 0; i < claimTypes.Length; i++)
@@ -143,11 +162,12 @@ internal class Journey
         List<string> details = new List<string>();
 
         // Add the claim type, expense cost, travel cost, non-refundable amount, and total cost to the list of receipt details
-        details.Add("\nClaim type: " + claimType);
-        details.Add("\nExpense cost: " + expenseCost);
-        details.Add("Travel cost: " + travelCost);
-        details.Add("Total cost: " + GetTotalCost());
-        details.Add("Non-refundable amount: " + nonRefundable);
+        details.Add("\nReceipt Details for journey #" + journeyId + ":");
+        details.Add("\nClaim type for journey #" + journeyId + ": " + claimType);
+        details.Add("\nTravel costs for journey #" + journeyId + ": £" + travelCost);
+        details.Add("Cost of other expenses for journey #" + journeyId + ": £" + expenseCost);
+        details.Add("Total costs for journey #" + journeyId + ": £" + GetTotalCost());
+        details.Add("Non-refundable amount for journey #" + journeyId + ": £" + nonRefundable);
 
 
         // Return the list of receipt details
